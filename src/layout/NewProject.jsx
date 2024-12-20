@@ -12,6 +12,7 @@ const NewProject = ({ onSave }) => {
       title: titleRef.current.value,
       description: descriptionRef.current.value,
       dueDate: dueDateRef.current.value,
+      id: Math.random(),
     };
 
     onSave(project);

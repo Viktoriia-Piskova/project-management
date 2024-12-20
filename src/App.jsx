@@ -18,12 +18,13 @@ function App() {
   function handleSaveProject(project) {
     const newProject = { ...project, id: Math.random() };
     setProjectState((prevState) => {
-      return { ...prevState, projects: [...prevState.projects, newProject] };
+      return { ...prevState, 
+        selectedProjectId: undefined,
+        projects: [...prevState.projects, newProject] };
     });
   }
 
   let content;
-  console.log(projectState);
 
   if (projectState.selectedProjectId === null) {
     content = <NewProject onSave={handleSaveProject} />;
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <main className="md:h-screen md:flex gap-8">
-      <SideBar onStartAddProject={handleStartAddProject} />
+      <SideBar onStartAddProject={handleStartAddProject} projects={projectState.projects}/>
       {content}
     </main>
   );
