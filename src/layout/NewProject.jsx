@@ -3,12 +3,13 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import Modal from "../layout/Modal";
 
-const NewProject = ({ onSave }) => {
+const NewProject = ({ onSave, onCancel }) => {
   const modalRef = useRef();
 
   const titleRef = useRef();
   const descriptionRef = useRef();
   const dueDateRef = useRef();
+
 
   function handleSave() {
     const enteredTitle = titleRef.current.value;
@@ -32,6 +33,10 @@ const NewProject = ({ onSave }) => {
 
     onSave(project);
   }
+
+  function handleCancel() {
+    onCancel()
+  }
   return (
     <>
       <Modal ref={modalRef}>
@@ -40,7 +45,7 @@ const NewProject = ({ onSave }) => {
       </Modal>
       <div className="px-4 w-full md:w-[80%] max-w-[500px]">
         <menu className="flex items-center justify-end gap-4 my-4">
-          <Button disabled>Cancel</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleSave} isDark>
             Save
           </Button>
