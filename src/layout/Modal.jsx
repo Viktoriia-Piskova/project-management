@@ -19,7 +19,7 @@ const Modal = forwardRef(function Modal(
       className="backdrop:bg-stone-600/50 rounded-md p-6 shadow-md"
     >
       {children}
-      <form action="dialog">
+      <form method="dialog">
         <button className="mt-4 p-3 rounded-md bg-slate-900 hover:bg-slate-700 text-slate-100">
           {buttonCaption}
         </button>
