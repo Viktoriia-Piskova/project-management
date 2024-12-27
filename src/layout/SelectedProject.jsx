@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ProjectsContext } from "../store/projects-context";
 
-const SelectedProject = ({ project, onDelete }) => {
+const SelectedProject = () => {
+  const { project, handleDeleteProject } = useContext(ProjectsContext);
   const formattedDate = new Date(project.dueDate).toLocaleDateString("en-UK");
+
   return (
     <div className="w-[35rem] mt-16">
       <header className="pb-4 border-b2 border-stone-300">
@@ -11,7 +14,7 @@ const SelectedProject = ({ project, onDelete }) => {
           </h1>
           <button
             className="text-stone-600 hover:text-stone-950"
-            onClick={onDelete}
+            onClick={handleDeleteProject}
           >
             Delete
           </button>

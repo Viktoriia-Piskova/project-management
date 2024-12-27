@@ -1,15 +1,17 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import { ProjectsContext } from "../store/projects-context";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Modal from "../layout/Modal";
 
-const NewProject = ({ onSave, onCancel }) => {
-  const modalRef = useRef();
+const NewProject = () => {
+  const { handleCancelAddProject, handleSaveProject } =
+    useContext(ProjectsContext);
 
+  const modalRef = useRef();
   const titleRef = useRef();
   const descriptionRef = useRef();
   const dueDateRef = useRef();
-
 
   function handleSave() {
     const enteredTitle = titleRef.current.value;
@@ -31,17 +33,19 @@ const NewProject = ({ onSave, onCancel }) => {
       id: Math.random(),
     };
 
-    onSave(project);
+    handleSaveProject(project);
   }
 
   function handleCancel() {
-    onCancel()
+    handleCancelAddProject();
   }
   return (
     <>
       <Modal ref={modalRef}>
         <h2 className="text-xl text-bold text-center my-4">Validation error</h2>
-        <p className="">Please make sure you provide a valid value for every input</p>
+        <p className="">
+          Please make sure you provide a valid value for every input
+        </p>
       </Modal>
       <div className="px-4 w-full md:w-[80%] max-w-[500px]">
         <menu className="flex items-center justify-end gap-4 my-4">
