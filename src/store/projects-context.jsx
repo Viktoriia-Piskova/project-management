@@ -45,7 +45,7 @@ export default function ProjectsContextProvider({ children }) {
     setProjectState((prevState) => {
       return {
         ...prevState,
-        selectedProjectId: 45678,
+        selectedProjectId: undefined,
         projects: prevState.projects.filter(
           (project) => project.id !== prevState.selectedProjectId
         ),
@@ -63,17 +63,9 @@ export default function ProjectsContextProvider({ children }) {
     handleCancelAddProject: handleCancelAddProject,
     handleSaveProject: handleSaveProject,
     handleSelectProject: handleSelectProject,
-    selectedProjectId: undefined,
+    selectedProjectId: projectState.selectedProjectId,
     selectedProject: selectedProject,
-    projects: [
-      {
-        id: undefined,
-        title: undefined,
-        dueDate: undefined,
-        description: undefined,
-        tasks: [],
-      },
-    ],
+    projects: projectState.projects,
   };
 
   return (

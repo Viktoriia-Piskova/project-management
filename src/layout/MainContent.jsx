@@ -8,9 +8,9 @@ const MainContent = () => {
   const { selectedProjectId } = useContext(ProjectsContext);
   let content = <SelectedProject />;
 
-  if (selectedProjectId === undefined) {
+  if (selectedProjectId === null) {
     content = <NewProject />;
-  } else if (selectedProjectId === null) {
+  } else if (selectedProjectId === undefined) {
     content = <NoProjectSelected />;
   }
   return <>{content}</>;
