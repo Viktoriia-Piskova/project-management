@@ -53,19 +53,27 @@ export default function ProjectsContextProvider({ children }) {
     });
   }
 
+  function handleAddTask() {
+    console.log("handleAddTask");
+  }
+
   const selectedProject = projectState.projects.find(
     (project) => project.id === projectState.selectedProjectId
   );
 
+  const selectedProjectTasks = selectedProject?.tasks;
+
   const ctxValue = {
     handleStartAddProject: handleStartAddProject,
     handleDeleteProject: handleDeleteProject,
+    handleAddTask: handleAddTask,
     handleCancelAddProject: handleCancelAddProject,
     handleSaveProject: handleSaveProject,
     handleSelectProject: handleSelectProject,
     selectedProjectId: projectState.selectedProjectId,
     selectedProject: selectedProject,
     projects: projectState.projects,
+    selectedProjectTasks,
   };
 
   return (
