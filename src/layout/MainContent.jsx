@@ -13,7 +13,7 @@ const MainContent = () => {
   } else if (selectedProjectId === undefined) {
     content = <NoProjectSelected />;
   }
-  return <>{content}</>;
+  return <section className="pb-8 md:h-screen overflow-y-auto w-full">{content}</section>;
 };
 
 export default MainContent;

@@ -2,7 +2,6 @@ import React, { createContext, useState } from "react";
 
 export const ProjectsContext = createContext({
   selectedProjectId: "ProjectsContext",
-  //startAddProject: () => {},
   projects: [],
 });
 
@@ -25,7 +24,7 @@ export default function ProjectsContextProvider({ children }) {
   }
 
   function handleSaveProject(project) {
-    const newProject = { ...project, id: Math.random() };
+    const newProject = { ...project, id: Math.random(), tasks: [] };
     setProjectState((prevState) => {
       return {
         ...prevState,
@@ -53,25 +52,65 @@ export default function ProjectsContextProvider({ children }) {
     });
   }
 
-  function handleAddTask() {
-    console.log("handleAddTask");
-  }
-
   const selectedProject = projectState.projects.find(
     (project) => project.id === projectState.selectedProjectId
   );
 
   const selectedProjectTasks = selectedProject?.tasks;
 
+  function handleAddTask(task) {
+    setProjectState((prevState) => {
+      const updatedProjects = prevState.projects.map((project) => {
+        if (prevState.selectedProjectId === project.id) {
+          return {
+            ...project,
+            tasks: [...project.tasks, { text: task, id: Math.random() }],
+          };
+        }
+        return {
+          ...project,
+        };
+      });
+      return {
+        ...prevState,
+        projects: updatedProjects,
+      };
+    });
+  }
+
+  function handleDeleteTask(taskId) {
+    setProjectState((prevState) => {
+      const updatedProjects = prevState.projects.map((project) => {
+        if (prevState.selectedProjectId === project.id) {
+          const filteredtasks = project.tasks.filter(
+            (task) => task.id !== taskId
+          );
+          return {
+            ...project,
+            tasks: filteredtasks,
+          };
+        }
+        return {
+          ...project,
+        };
+      });
+      return {
+        ...prevState,
+        projects: updatedProjects,
+      };
+    });
+  }
+
   const ctxValue = {
-    handleStartAddProject: handleStartAddProject,
-    handleDeleteProject: handleDeleteProject,
-    handleAddTask: handleAddTask,
-    handleCancelAddProject: handleCancelAddProject,
-    handleSaveProject: handleSaveProject,
-    handleSelectProject: handleSelectProject,
+    handleStartAddProject,
+    handleDeleteProject,
+    handleAddTask,
+    handleDeleteTask,
+    handleCancelAddProject,
+    handleSaveProject,
+    handleSelectProject,
     selectedProjectId: projectState.selectedProjectId,
-    selectedProject: selectedProject,
+    selectedProject,
     projects: projectState.projects,
     selectedProjectTasks,
   };

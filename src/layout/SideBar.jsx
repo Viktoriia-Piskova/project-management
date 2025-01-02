@@ -19,7 +19,7 @@ const SideBar = () => {
                 <button
                   onClick={() => handleSelectProject(project.id)}
                   className={`w-full text-left rounded-sm py-2 px-3 text-slate-400 ${
-                    selectedProjectId ? "bg-slate-950" : "bg-slate-700"
+                    selectedProjectId=== project.id ? "bg-slate-950" : "bg-slate-700"
                   } hover:text-slate-100 hover:bg-slate-950`}
                 >
                   {project.title}

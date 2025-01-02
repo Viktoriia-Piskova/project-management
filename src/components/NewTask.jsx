@@ -1,28 +1,31 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { ProjectsContext } from "../store/projects-context";
 
 const NewTask = () => {
-  const [enteredTask, setEnteredTask] = useState("");
   const { handleAddTask } = useContext(ProjectsContext);
-  function handleChange(e) {
-    setEnteredTask(e.target.value);
+  const inputRef = useRef();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    let enteredTask = inputRef.current.value;
+    if (enteredTask.trim() === "") return;
+    handleAddTask(enteredTask);
+    inputRef.current.value = "";
   }
 
   return (
-    <div className="flex items-center gap-4">
-      <input
-        type="text"
-        value={enteredTask}
-        onChange={handleChange}
-        className="w-64 px-2 py-1 rounded-sm bg-stone-200"
-      ></input>
-      <button
-        className="text-slate-700 hover:text-stone-900"
-        onClick={handleAddTask}
-      >
-        Add task
-      </button>
-    </div>
+    <>
+      <form onSubmit={handleSubmit} className="w-full p-2 flex items-center gap-4 justify-between">
+        <input
+          type="text"
+          className="w-64 p-2 rounded-sm bg-slate-200"
+          ref={inputRef}
+        ></input>
+        <button type="submit" className="text-slate-600 hover:text-stone-900 ml-4 font-bold">
+          Add task
+        </button>
+      </form>
+    </>
   );
 };
 
